@@ -9,13 +9,14 @@ coreKtx = "1.13.1"
 koinBom = "3.5.6"
 kotlin = "2.0.20"
 kotlinxDatetime = "0.6.1"
+kotlinxSerialization = "1.7.2"
 ksp = "2.0.20-1.0.24"
 lifecycleRuntimeKtx = "2.8.5"
 retrofit = "2.11.0"
 retrofitArrow = "1.2.4"
 room = "2.7.0-alpha07"
 sqlite = "2.5.0-alpha07"
-kotlinxSerialization = "1.7.2"
+zoomable = "1.6.2"
 
 # androidSdkVersions
 compileSdkVersion = "35"
@@ -53,6 +54,8 @@ retrofit-serialization = { module = "com.squareup.retrofit2:converter-kotlinx-se
 room-ksp = { module = "androidx.room:room-compiler", version.ref = "room" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
+zoomable = { module = "com.mxalbert.zoomable:zoomable", version.ref = "zoomable" }
+
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "androidGradlePlugin" }

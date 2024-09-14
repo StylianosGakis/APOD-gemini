@@ -82,6 +82,7 @@ dependencies {
     implementation(libs.retrofit.serialization)
     implementation(libs.room.runtime)
     implementation(libs.sqlite.bundled)
+    implementation(libs.zoomable)
     ksp(libs.room.ksp)
     debugImplementation(libs.androidx.ui.test.manifest)
     debugImplementation(libs.androidx.ui.tooling)
