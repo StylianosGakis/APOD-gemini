@@ -1,0 +1,64 @@
+[versions]
+activityCompose = "1.9.2"
+androidGradlePlugin = "8.6.0"
+androidxNavigation = "2.8.0"
+arrow = "1.2.4"
+coil-bom = "2.7.0"
+composeBom = "2024.09.01"
+coreKtx = "1.13.1"
+koinBom = "3.5.6"
+kotlin = "2.0.20"
+kotlinxDatetime = "0.6.1"
+ksp = "2.0.20-1.0.24"
+lifecycleRuntimeKtx = "2.8.5"
+retrofit = "2.11.0"
+retrofitArrow = "1.2.4"
+room = "2.7.0-alpha07"
+sqlite = "2.5.0-alpha07"
+kotlinxSerialization = "1.7.2"
+
+# androidSdkVersions
+compileSdkVersion = "35"
+targetSdkVersion = "35"
+minSdkVersion = "24"
+
+[libraries]
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
+androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-material3 = { module = "androidx.compose.material3:material3" }
+androidx-navigation-common = { module = "androidx.navigation:navigation-common", version.ref = "androidxNavigation" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidxNavigation" }
+androidx-navigation-runtime = { module = "androidx.navigation:navigation-runtime", version.ref = "androidxNavigation" }
+androidx-ui = { module = "androidx.compose.ui:ui" }
+androidx-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
+androidx-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+androidx-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+arrow-core = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }
+coil-bom = { module = "io.coil-kt:coil-bom", version.ref = "coil-bom" }
+coil-coil = { module = "io.coil-kt:coil" }
+coil-compose = { module = "io.coil-kt:coil-compose" }
+koin-android = { module = "io.insert-koin:koin-android" }
+koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koinBom"  }
+koin-compose = { module = "io.insert-koin:koin-androidx-compose" }
+koin-core = { module = "io.insert-koin:koin-core" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
+kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerialization" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+retrofit-arrow = { module = "io.arrow-kt:arrow-core-retrofit", version.ref = "retrofitArrow" }
+retrofit-core = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-serialization = { module = "com.squareup.retrofit2:converter-kotlinx-serialization", version.ref = "retrofit" }
+room-ksp = { module = "androidx.room:room-compiler", version.ref = "room" }
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+room = { id = "androidx.room", version.ref = "room" }
+serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
