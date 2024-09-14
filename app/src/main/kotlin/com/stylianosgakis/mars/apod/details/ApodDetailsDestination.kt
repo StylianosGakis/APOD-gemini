@@ -161,43 +161,43 @@ private fun ApodDetailsScreen(
                     )
             )
             Spacer(Modifier.height(8.dp))
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(horizontal = 16.dp)
-            )
-            if (apodItem != null) {
-                Spacer(Modifier.height(8.dp))
+            Column(
+                Modifier
+                    .padding(horizontal = 16.dp)
+                    .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal))
+            ) {
                 Text(
-                    text = apodItem.explanation,
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(horizontal = 16.dp)
-                )
-                Spacer(Modifier.height(8.dp))
-                Text(
-                    text = apodItem.date.toString(),
-                    style = MaterialTheme.typography.bodySmall,
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .align(Alignment.End)
-                )
-            }
-            if (geminiResponseState is GeminiResponseState.Data) {
-                Spacer(Modifier.height(8.dp))
-                Text(
-                    text = "Gemini Information",
+                    text = title,
                     style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.padding(horizontal = 16.dp)
+                    fontWeight = FontWeight.Bold,
                 )
-                Spacer(Modifier.height(8.dp))
-                Text(
-                    text = geminiResponseState.response,
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(horizontal = 16.dp)
-                )
+                if (apodItem != null) {
+                    Spacer(Modifier.height(8.dp))
+                    Text(
+                        text = apodItem.explanation,
+                        style = MaterialTheme.typography.bodyLarge,
+                    )
+                    Spacer(Modifier.height(8.dp))
+                    Text(
+                        text = apodItem.date.toString(),
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.align(Alignment.End)
+                    )
+                }
+                if (geminiResponseState is GeminiResponseState.Data) {
+                    Spacer(Modifier.height(8.dp))
+                    Text(
+                        text = "Gemini Information",
+                        style = MaterialTheme.typography.titleLarge,
+                    )
+                    Spacer(Modifier.height(8.dp))
+                    Text(
+                        text = geminiResponseState.response,
+                        style = MaterialTheme.typography.bodyLarge,
+                    )
+                }
+                Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.safeDrawing))
             }
-            Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.safeDrawing))
         }
         val density = LocalDensity.current
         if (geminiResponseState !is GeminiResponseState.Data) {
