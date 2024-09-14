@@ -13,7 +13,6 @@ data class ApodEntity(
     val date: LocalDate,
     val explanation: String,
     val url: String?,
-    val mediaType: String,
 )
 
 fun ApodEntity.toApodItem(): ApodItem = ApodItem(
@@ -22,7 +21,6 @@ fun ApodEntity.toApodItem(): ApodItem = ApodItem(
     date = date,
     explanation = explanation,
     url = url,
-    mediaType = mediaType,
 )
 
 fun ApodItem.toApodEntity(): ApodEntity = ApodEntity(
@@ -31,5 +29,4 @@ fun ApodItem.toApodEntity(): ApodEntity = ApodEntity(
     date = date,
     explanation = explanation,
     url = url,
-    mediaType = mediaType,
 )

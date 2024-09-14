@@ -14,12 +14,17 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,7 +33,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.compose.dropUnlessResumed
@@ -37,6 +44,10 @@ import coil.request.ImageRequest
 import com.stylianosgakis.mars.LocalAnimatedContentScope
 import com.stylianosgakis.mars.LocalSharedTransitionScope
 import com.stylianosgakis.mars.apod.ApodItem
+import com.stylianosgakis.mars.theme.MarsTheme
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 
 @Composable
 fun ApodDetailsDestination(
@@ -46,7 +57,13 @@ fun ApodDetailsDestination(
     onNavigateToPhoto: (url: String) -> Unit,
 ) {
     val uiState: ApodDetailsUiState by apodDetailsViewModel.uiState.collectAsStateWithLifecycle()
-    ApodDetailsScreen(uiState, apodTitle, apodUrl, onNavigateToPhoto)
+    ApodDetailsScreen(
+        uiState = uiState,
+        apodTitle = apodTitle,
+        apodUrl = apodUrl,
+        onNavigateToPhoto = onNavigateToPhoto,
+        onGenerateGeminiInformation = apodDetailsViewModel::generateGeminiInformation
+    )
 }
 
 @Composable
@@ -55,6 +72,7 @@ private fun ApodDetailsScreen(
     apodTitle: String,
     apodUrl: String?,
     onNavigateToPhoto: (url: String) -> Unit,
+    onGenerateGeminiInformation: () -> Unit,
 ) {
     Box(
         Modifier.fillMaxSize(),
@@ -72,9 +90,11 @@ private fun ApodDetailsScreen(
             else -> {
                 ApodDetailsScreen(
                     (uiState as? ApodDetailsUiState.Data)?.apodItem,
+                    (uiState as? ApodDetailsUiState.Data)?.geminiResponseState,
                     apodTitle,
                     apodUrl,
-                    onNavigateToPhoto
+                    onNavigateToPhoto,
+                    onGenerateGeminiInformation,
                 )
             }
         }
@@ -84,77 +104,153 @@ private fun ApodDetailsScreen(
 @Composable
 private fun ApodDetailsScreen(
     apodItem: ApodItem?,
+    geminiResponseState: GeminiResponseState?,
     title: String,
     apodUrl: String?,
     onNavigateToPhoto: (url: String) -> Unit,
+    onGenerateGeminiInformation: () -> Unit,
 ) {
-    Column(Modifier.verticalScroll(rememberScrollState())) {
-        AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(apodUrl)
-                .placeholderMemoryCacheKey(apodUrl)
-                .build(),
-            contentDescription = title,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .widthIn(max = 500.dp)
-                .fillMaxWidth()
-                .align(Alignment.CenterHorizontally)
-                .heightIn(min = 250.dp)
-                .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Top))
-                .then(
-                    with(LocalSharedTransitionScope.current) {
-                        Modifier.sharedElement(
-                            state = rememberSharedContentState(title),
-                            animatedVisibilityScope = LocalAnimatedContentScope.current,
-                        )
-                    }
-                )
-                .then(
-                    if (apodUrl != null) {
+    Box {
+        Column(
+            Modifier
+                .matchParentSize()
+                .verticalScroll(rememberScrollState())
+        ) {
+            AsyncImage(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(apodUrl)
+                    .placeholderMemoryCacheKey(apodUrl)
+                    .build(),
+                contentDescription = title,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .widthIn(max = 500.dp)
+                    .fillMaxWidth()
+                    .align(Alignment.CenterHorizontally)
+                    .heightIn(min = 250.dp)
+                    .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Top))
+                    .then(
                         with(LocalSharedTransitionScope.current) {
                             Modifier.sharedElement(
-                                state = rememberSharedContentState(apodUrl),
+                                state = rememberSharedContentState(title),
                                 animatedVisibilityScope = LocalAnimatedContentScope.current,
                             )
                         }
-                    } else {
-                        Modifier
-                    }
-                )
-                .background(MaterialTheme.colorScheme.surfaceDim)
-                .then(
-                    if (apodUrl != null) {
-                        Modifier.clickable(
-                            onClick = dropUnlessResumed { onNavigateToPhoto(apodUrl) }
-                        )
-                    } else {
-                        Modifier
-                    }
-                )
-        )
-        Spacer(Modifier.height(8.dp))
-        Text(
-            text = title,
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(horizontal = 16.dp)
-        )
-        if (apodItem != null) {
+                    )
+                    .then(
+                        if (apodUrl != null) {
+                            with(LocalSharedTransitionScope.current) {
+                                Modifier.sharedElement(
+                                    state = rememberSharedContentState(apodUrl),
+                                    animatedVisibilityScope = LocalAnimatedContentScope.current,
+                                )
+                            }
+                        } else {
+                            Modifier
+                        }
+                    )
+                    .background(MaterialTheme.colorScheme.surfaceDim)
+                    .then(
+                        if (apodUrl != null) {
+                            Modifier.clickable(
+                                onClick = dropUnlessResumed { onNavigateToPhoto(apodUrl) }
+                            )
+                        } else {
+                            Modifier
+                        }
+                    )
+            )
             Spacer(Modifier.height(8.dp))
             Text(
-                text = apodItem.explanation,
-                style = MaterialTheme.typography.bodyLarge,
+                text = title,
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
-            Spacer(Modifier.height(8.dp))
-            Text(
-                text = apodItem.date.toString(),
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .align(Alignment.End)
-            )
+            if (apodItem != null) {
+                Spacer(Modifier.height(8.dp))
+                Text(
+                    text = apodItem.explanation,
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
+                Spacer(Modifier.height(8.dp))
+                Text(
+                    text = apodItem.date.toString(),
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .align(Alignment.End)
+                )
+            }
+            if (geminiResponseState is GeminiResponseState.Data) {
+                Spacer(Modifier.height(8.dp))
+                Text(
+                    text = "Gemini Information",
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
+                Spacer(Modifier.height(8.dp))
+                Text(
+                    text = geminiResponseState.response,
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
+            }
+            Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.safeDrawing))
         }
+        val density = LocalDensity.current
+        if (geminiResponseState !is GeminiResponseState.Data) {
+            FloatingActionButton(
+                onGenerateGeminiInformation,
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(16.dp)
+                    .windowInsetsPadding(
+                        WindowInsets.safeDrawing.only(
+                            WindowInsetsSides.Bottom + WindowInsetsSides.End
+                        )
+                    )
+            ) {
+                when (geminiResponseState) {
+                    GeminiResponseState.Error -> {
+                        Icon(Icons.Filled.Warning, contentDescription = "Error")
+                    }
+
+                    GeminiResponseState.Loading -> {
+                        CircularProgressIndicator()
+                    }
+
+                    GeminiResponseState.Idle -> {
+                        Text("✨", fontSize = with(density) { 24.dp.toSp() })
+                    }
+
+                    else -> {}
+                }
+            }
+        }
+    }
+}
+
+@Composable
+@Preview
+fun PreviewApodDetailsScreen() {
+    MarsTheme {
+        ApodDetailsScreen(
+            ApodDetailsUiState.Data(
+                ApodItem(
+                    title = "title",
+                    copyright = "copyright",
+                    date = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date,
+                    explanation = "explanation",
+                    url = "url",
+                ),
+                GeminiResponseState.Idle,
+            ),
+            "Title",
+            null,
+            {},
+            {},
+        )
     }
 }

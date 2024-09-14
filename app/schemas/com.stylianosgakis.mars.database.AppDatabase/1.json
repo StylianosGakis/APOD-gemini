@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "40024d19a2a852066a19e7319e223daa",
+    "identityHash": "48479e752ffdde05648f3a591b648f50",
     "entities": [
       {
         "tableName": "apod_entity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`title` TEXT NOT NULL, `copyright` TEXT, `date` TEXT NOT NULL, `explanation` TEXT NOT NULL, `url` TEXT, `mediaType` TEXT NOT NULL, PRIMARY KEY(`title`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`title` TEXT NOT NULL, `copyright` TEXT, `date` TEXT NOT NULL, `explanation` TEXT NOT NULL, `url` TEXT, PRIMARY KEY(`title`))",
         "fields": [
           {
             "fieldPath": "title",
@@ -35,12 +35,6 @@
             "fieldPath": "url",
             "columnName": "url",
             "affinity": "TEXT"
-          },
-          {
-            "fieldPath": "mediaType",
-            "columnName": "mediaType",
-            "affinity": "TEXT",
-            "notNull": true
           }
         ],
         "primaryKey": {
@@ -53,7 +47,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '40024d19a2a852066a19e7319e223daa')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '48479e752ffdde05648f3a591b648f50')"
     ]
   }
 }

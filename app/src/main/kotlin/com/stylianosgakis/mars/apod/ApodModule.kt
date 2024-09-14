@@ -7,7 +7,6 @@ import com.stylianosgakis.mars.api.ApodRepository
 import com.stylianosgakis.mars.api.ApodService
 import com.stylianosgakis.mars.apod.collection.ApodCollectionViewModel
 import com.stylianosgakis.mars.apod.details.ApodDetailsViewModel
-import com.stylianosgakis.mars.networking.AuthTokenInterceptor
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -22,7 +21,9 @@ val apodModule =
             val okHttpClient =
                 OkHttpClient
                     .Builder()
-                    .addInterceptor(AuthTokenInterceptor(get<Context>().getString(R.string.nasa_token)))
+                    .addInterceptor(
+                        ApodAuthTokenInterceptor(get<Context>().getString(R.string.nasa_token))
+                    )
                     .build()
             val serialFormat = Json {
                 ignoreUnknownKeys = true
@@ -39,5 +40,5 @@ val apodModule =
         }
         single<ApodRepository> { ApodRepository(get(), get()) }
         viewModel<ApodCollectionViewModel> { ApodCollectionViewModel(get()) }
-        viewModel<ApodDetailsViewModel> { ApodDetailsViewModel(get(), get()) }
+        viewModel<ApodDetailsViewModel> { ApodDetailsViewModel(get(), get(), get()) }
     }

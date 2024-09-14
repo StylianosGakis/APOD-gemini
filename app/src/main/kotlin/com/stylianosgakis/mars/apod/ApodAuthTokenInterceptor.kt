@@ -1,9 +1,9 @@
-package com.stylianosgakis.mars.networking
+package com.stylianosgakis.mars.apod
 
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class AuthTokenInterceptor(
+class ApodAuthTokenInterceptor(
     private val apiKey: String,
 ) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {

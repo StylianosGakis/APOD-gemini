@@ -4,9 +4,9 @@ import android.app.Application
 import coil.ImageLoader
 import coil.ImageLoaderFactory
 import coil.memory.MemoryCache
-import coil.request.CachePolicy
 import com.stylianosgakis.mars.apod.apodModule
 import com.stylianosgakis.mars.database.databaseModule
+import com.stylianosgakis.mars.gemini.geminiModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -15,7 +15,7 @@ class MarsApp : Application(), ImageLoaderFactory {
         super.onCreate()
         startKoin {
             androidContext(this@MarsApp)
-            modules(apodModule, databaseModule)
+            modules(apodModule, databaseModule, geminiModule)
         }
     }
 
