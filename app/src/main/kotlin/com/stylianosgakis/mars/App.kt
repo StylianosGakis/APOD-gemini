@@ -79,7 +79,7 @@ fun App(modifier: Modifier = Modifier) {
     }
 }
 
-val LocalSharedTransitionScope: ProvidableCompositionLocal<SharedTransitionScope> =
-    compositionLocalOf { error("LocalSharedTransitionScope not provided") }
-val LocalAnimatedContentScope: ProvidableCompositionLocal<AnimatedContentScope> =
-    compositionLocalOf { error("LocalAnimatedContentScope not provided") }
+val LocalSharedTransitionScope: ProvidableCompositionLocal<SharedTransitionScope?> =
+    compositionLocalOf { null }
+val LocalAnimatedContentScope: ProvidableCompositionLocal<AnimatedContentScope?> =
+    compositionLocalOf { null }

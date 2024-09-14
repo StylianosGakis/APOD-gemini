@@ -25,11 +25,19 @@ fun PictureDestination(pictureUrl: String) {
             .background(Color.Black)
             .wrapContentHeight()
             .then(
-                with(LocalSharedTransitionScope.current) {
-                    Modifier.sharedElement(
-                        state = rememberSharedContentState(pictureUrl),
-                        animatedVisibilityScope = LocalAnimatedContentScope.current,
-                    )
+                run {
+                    val sharedTransitionScope = LocalSharedTransitionScope.current
+                    val animatedContentScope = LocalAnimatedContentScope.current
+                    if (sharedTransitionScope != null && animatedContentScope != null) {
+                        with(sharedTransitionScope) {
+                            Modifier.sharedElement(
+                                state = rememberSharedContentState(pictureUrl),
+                                animatedVisibilityScope = animatedContentScope,
+                            )
+                        }
+                    } else {
+                        Modifier
+                    }
                 }
             )
 

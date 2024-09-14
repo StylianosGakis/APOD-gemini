@@ -130,23 +130,35 @@ private fun ApodDetailsScreen(
                     .heightIn(min = 250.dp)
                     .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Top))
                     .then(
-                        with(LocalSharedTransitionScope.current) {
-                            Modifier.sharedElement(
-                                state = rememberSharedContentState(title),
-                                animatedVisibilityScope = LocalAnimatedContentScope.current,
-                            )
+                        run {
+                            val sharedTransitionScope = LocalSharedTransitionScope.current
+                            val animatedContentScope = LocalAnimatedContentScope.current
+                            if (sharedTransitionScope != null && animatedContentScope != null) {
+                                with(sharedTransitionScope) {
+                                    Modifier.sharedElement(
+                                        state = rememberSharedContentState(title),
+                                        animatedVisibilityScope = animatedContentScope,
+                                    )
+                                }
+                            } else {
+                                Modifier
+                            }
                         }
                     )
                     .then(
-                        if (apodUrl != null) {
-                            with(LocalSharedTransitionScope.current) {
-                                Modifier.sharedElement(
-                                    state = rememberSharedContentState(apodUrl),
-                                    animatedVisibilityScope = LocalAnimatedContentScope.current,
-                                )
+                        run {
+                            val sharedTransitionScope = LocalSharedTransitionScope.current
+                            val animatedContentScope = LocalAnimatedContentScope.current
+                            if (sharedTransitionScope != null && animatedContentScope != null && apodUrl != null) {
+                                with(sharedTransitionScope) {
+                                    Modifier.sharedElement(
+                                        state = rememberSharedContentState(apodUrl),
+                                        animatedVisibilityScope = animatedContentScope,
+                                    )
+                                }
+                            } else {
+                                Modifier
                             }
-                        } else {
-                            Modifier
                         }
                     )
                     .background(MaterialTheme.colorScheme.surfaceDim)
@@ -222,7 +234,7 @@ private fun ApodDetailsScreen(
                     }
 
                     GeminiResponseState.Idle -> {
-                        Text("✨", fontSize = with(density) { 24.dp.toSp() })
+                        Text(text = "✨", fontSize = with(density) { 24.dp.toSp() })
                     }
 
                     else -> {}
@@ -232,8 +244,8 @@ private fun ApodDetailsScreen(
     }
 }
 
-@Composable
 @Preview
+@Composable
 fun PreviewApodDetailsScreen() {
     MarsTheme {
         ApodDetailsScreen(

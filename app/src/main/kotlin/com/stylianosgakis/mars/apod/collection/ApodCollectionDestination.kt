@@ -34,6 +34,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -44,6 +45,10 @@ import com.stylianosgakis.mars.LocalAnimatedContentScope
 import com.stylianosgakis.mars.LocalSharedTransitionScope
 import com.stylianosgakis.mars.apod.ApodItem
 import com.stylianosgakis.mars.plus
+import com.stylianosgakis.mars.theme.MarsTheme
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 
 @Composable
 fun ApodCollectionDestination(
@@ -51,11 +56,11 @@ fun ApodCollectionDestination(
     onNavigateToApodDetails: (title: String, url: String?) -> Unit,
 ) {
     val uiState: ApodCollectionUiState by apodCollectionViewModel.uiState.collectAsStateWithLifecycle()
-    ApodListScreen(uiState, apodCollectionViewModel::refreshPhotos, onNavigateToApodDetails)
+    ApodCollectionScreen(uiState, apodCollectionViewModel::refreshPhotos, onNavigateToApodDetails)
 }
 
 @Composable
-fun ApodListScreen(
+private fun ApodCollectionScreen(
     uiState: ApodCollectionUiState,
     refresh: () -> Unit,
     onNavigateToApodDetails: (title: String, url: String?) -> Unit,
@@ -85,7 +90,7 @@ fun ApodListScreen(
                 )
             }
 
-            is ApodCollectionUiState.Data -> ApodListScreen(
+            is ApodCollectionUiState.Data -> ApodCollectionScreen(
                 uiState = uiState,
                 refresh = refresh,
                 onNavigateToApodDetails = onNavigateToApodDetails
@@ -95,7 +100,7 @@ fun ApodListScreen(
 }
 
 @Composable
-private fun ApodListScreen(
+private fun ApodCollectionScreen(
     uiState: ApodCollectionUiState.Data,
     refresh: () -> Unit,
     onNavigateToApodDetails: (title: String, url: String?) -> Unit,
@@ -169,11 +174,19 @@ private fun ApodListItem(
                     .fillMaxWidth()
                     .height(140.dp)
                     .then(
-                        with(LocalSharedTransitionScope.current) {
-                            Modifier.sharedElement(
-                                state = rememberSharedContentState(apodItem.title),
-                                animatedVisibilityScope = LocalAnimatedContentScope.current,
-                            )
+                        run {
+                            val sharedTransitionScope = LocalSharedTransitionScope.current
+                            val animatedContentScope = LocalAnimatedContentScope.current
+                            if (sharedTransitionScope != null && animatedContentScope != null) {
+                                with(sharedTransitionScope) {
+                                    Modifier.sharedElement(
+                                        state = rememberSharedContentState(apodItem.title),
+                                        animatedVisibilityScope = animatedContentScope,
+                                    )
+                                }
+                            } else {
+                                Modifier
+                            }
                         }
                     )
                     .clip(shape)
@@ -194,5 +207,27 @@ private fun ApodListItem(
                 )
             }
         }
+    }
+}
+
+@Preview
+@Composable
+fun PreviewApodCollectionScreen() {
+    MarsTheme {
+        ApodCollectionScreen(
+            ApodCollectionUiState.Data(
+                List(5) {
+                    ApodItem(
+                        title = "title",
+                        copyright = "copyright",
+                        date = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date,
+                        explanation = "explanation",
+                        url = null,
+                    )
+                },
+            ),
+            {},
+            { _, _ -> }
+        )
     }
 }
