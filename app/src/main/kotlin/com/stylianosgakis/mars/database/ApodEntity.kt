@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.stylianosgakis.mars.apod.ApodItem
 import kotlinx.datetime.LocalDate
 
-@Entity(tableName = "apod_entity")
+//@Entity(tableName = "apod_entity")
 data class ApodEntity(
     @PrimaryKey
     val title: String,
@@ -14,19 +14,19 @@ data class ApodEntity(
     val explanation: String,
     val url: String?,
 )
-
-fun ApodEntity.toApodItem(): ApodItem = ApodItem(
-    title = title,
-    copyright = copyright,
-    date = date,
-    explanation = explanation,
-    url = url,
-)
-
-fun ApodItem.toApodEntity(): ApodEntity = ApodEntity(
-    title = title,
-    copyright = copyright,
-    date = date,
-    explanation = explanation,
-    url = url,
-)
+//
+//fun ApodEntity.toApodItem(): ApodItem = ApodItem(
+//    title = title,
+//    copyright = copyright,
+//    date = date,
+//    explanation = explanation,
+//    url = url,
+//)
+//
+//fun ApodItem.toApodEntity(): ApodEntity = ApodEntity(
+//    title = title,
+//    copyright = copyright,
+//    date = date,
+//    explanation = explanation,
+//    url = url,
+//)

@@ -8,7 +8,7 @@ class ApodAuthTokenInterceptor(
 ) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val urlWithAuthToken = chain.request().url.newBuilder()
-            .addQueryParameter("api_key", apiKey)
+//            .addQueryParameter("api_key", apiKey)
             .build()
         return chain.proceed(
             chain.request().newBuilder().url(urlWithAuthToken).build()

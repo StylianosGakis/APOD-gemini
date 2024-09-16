@@ -8,10 +8,10 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ApodDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(apodEntities: List<ApodEntity>)
 
-    @Query("SELECT * FROM apod_entity WHERE title = :title")
+//    @Query("SELECT * FROM apod_entity WHERE title = :title")
     fun getApod(title: String): Flow<ApodEntity?>
 }
 

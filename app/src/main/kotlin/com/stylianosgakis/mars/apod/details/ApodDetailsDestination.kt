@@ -42,7 +42,6 @@ import androidx.lifecycle.compose.dropUnlessResumed
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.stylianosgakis.mars.apod.ApodItem
-import com.stylianosgakis.mars.sharedElement
 import com.stylianosgakis.mars.theme.MarsTheme
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
@@ -128,14 +127,14 @@ private fun ApodDetailsScreen(
                     .align(Alignment.CenterHorizontally)
                     .heightIn(min = 250.dp)
                     .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Top))
-                    .sharedElement(title)
-                    .then(
-                        if (apodUrl != null) {
-                            Modifier.sharedElement(key = apodUrl)
-                        } else {
-                            Modifier
-                        }
-                    )
+//                    .sharedElement(title)
+//                    .then(
+//                        if (apodUrl != null) {
+//                            Modifier.sharedElement(key = apodUrl)
+//                        } else {
+//                            Modifier
+//                        }
+//                    )
                     .background(MaterialTheme.colorScheme.surfaceDim)
                     .then(
                         if (apodUrl != null) {
@@ -171,51 +170,51 @@ private fun ApodDetailsScreen(
                         modifier = Modifier.align(Alignment.End)
                     )
                 }
-                if (geminiResponseState is GeminiResponseState.Data) {
-                    Spacer(Modifier.height(8.dp))
-                    Text(
-                        text = "Gemini Information",
-                        style = MaterialTheme.typography.titleLarge,
-                    )
-                    Spacer(Modifier.height(8.dp))
-                    Text(
-                        text = geminiResponseState.response,
-                        style = MaterialTheme.typography.bodyLarge,
-                    )
-                }
+//                if (geminiResponseState is GeminiResponseState.Data) {
+//                    Spacer(Modifier.height(8.dp))
+//                    Text(
+//                        text = "Gemini Information",
+//                        style = MaterialTheme.typography.titleLarge,
+//                    )
+//                    Spacer(Modifier.height(8.dp))
+//                    Text(
+//                        text = geminiResponseState.response,
+//                        style = MaterialTheme.typography.bodyLarge,
+//                    )
+//                }
                 Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.safeDrawing))
             }
         }
-        val density = LocalDensity.current
-        if (geminiResponseState !is GeminiResponseState.Data) {
-            FloatingActionButton(
-                onGenerateGeminiInformation,
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(16.dp)
-                    .windowInsetsPadding(
-                        WindowInsets.safeDrawing.only(
-                            WindowInsetsSides.Bottom + WindowInsetsSides.End
-                        )
-                    )
-            ) {
-                when (geminiResponseState) {
-                    GeminiResponseState.Error -> {
-                        Icon(Icons.Filled.Warning, contentDescription = "Error")
-                    }
-
-                    GeminiResponseState.Loading -> {
-                        CircularProgressIndicator()
-                    }
-
-                    GeminiResponseState.Idle -> {
-                        Text(text = "✨", fontSize = with(density) { 24.dp.toSp() })
-                    }
-
-                    else -> {}
-                }
-            }
-        }
+//        val density = LocalDensity.current
+//        if (geminiResponseState !is GeminiResponseState.Data) {
+//            FloatingActionButton(
+//                onGenerateGeminiInformation,
+//                modifier = Modifier
+//                    .align(Alignment.BottomEnd)
+//                    .padding(16.dp)
+//                    .windowInsetsPadding(
+//                        WindowInsets.safeDrawing.only(
+//                            WindowInsetsSides.Bottom + WindowInsetsSides.End
+//                        )
+//                    )
+//            ) {
+//                when (geminiResponseState) {
+//                    GeminiResponseState.Error -> {
+//                        Icon(Icons.Filled.Warning, contentDescription = "Error")
+//                    }
+//
+//                    GeminiResponseState.Loading -> {
+//                        CircularProgressIndicator()
+//                    }
+//
+//                    GeminiResponseState.Idle -> {
+//                        Text(text = "✨", fontSize = with(density) { 24.dp.toSp() })
+//                    }
+//
+//                    else -> {}
+//                }
+//            }
+//        }
     }
 }
 

@@ -10,12 +10,11 @@ import androidx.compose.ui.platform.LocalContext
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.mxalbert.zoomable.Zoomable
-import com.stylianosgakis.mars.sharedElement
 
 @Composable
 fun PictureDestination(pictureUrl: String) {
     // https://github.com/mxalbert1996/Zoomable
-    Zoomable {
+//    Zoomable {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
                 .data(pictureUrl)
@@ -26,7 +25,7 @@ fun PictureDestination(pictureUrl: String) {
                 .fillMaxSize()
                 .background(Color.Black)
                 .wrapContentHeight()
-                .sharedElement(key = pictureUrl)
+//                .sharedElement(key = pictureUrl)
         )
-    }
+//    }
 }

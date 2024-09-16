@@ -4,7 +4,6 @@ import arrow.core.Either
 import arrow.retrofit.adapter.either.networkhandling.CallError
 import com.stylianosgakis.mars.apod.ApodItem
 import com.stylianosgakis.mars.database.ApodDao
-import com.stylianosgakis.mars.database.toApodEntity
 
 class ApodRepository(
     private val apodService: ApodService,
@@ -15,8 +14,8 @@ class ApodRepository(
             apodItems.map { item ->
                 item.copy(title = item.title.trim())
             }
-        }.onRight { apodItems ->
-            apodDao.insertAll(apodItems.map { item -> item.toApodEntity() })
+//        }.onRight { apodItems ->
+//            apodDao.insertAll(apodItems.map { item -> item.toApodEntity() })
         }
     }
 }

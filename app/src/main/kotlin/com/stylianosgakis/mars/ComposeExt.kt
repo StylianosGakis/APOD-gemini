@@ -38,51 +38,51 @@ operator fun PaddingValues.plus(that: PaddingValues): PaddingValues = object : P
 /**
  * https://developer.android.com/develop/ui/compose/animation/shared-elements
  */
-@Composable
-fun Modifier.sharedElement(
-    key: Any,
-    boundsTransform: BoundsTransform = DefaultBoundsTransform,
-    placeHolderSize: PlaceHolderSize = contentSize,
-    renderInOverlayDuringTransition: Boolean = true,
-    zIndexInOverlay: Float = 0f,
-    clipInOverlayDuringTransition: OverlayClip = ParentClip
-): Modifier {
-    val sharedTransitionScope = LocalSharedTransitionScope.current
-    val animatedContentScope = LocalAnimatedContentScope.current
-    return this.then(
-        if (sharedTransitionScope == null || animatedContentScope == null) {
-            Modifier
-        } else {
-            with(sharedTransitionScope) {
-                Modifier.sharedElement(
-                    state = rememberSharedContentState(key),
-                    animatedVisibilityScope = animatedContentScope,
-                    boundsTransform = boundsTransform,
-                    placeHolderSize = placeHolderSize,
-                    renderInOverlayDuringTransition = renderInOverlayDuringTransition,
-                    zIndexInOverlay = zIndexInOverlay,
-                    clipInOverlayDuringTransition = clipInOverlayDuringTransition,
-                )
-            }
-        }
-    )
-}
-
-private val DefaultBoundsTransform = BoundsTransform { _, _ -> DefaultSpring }
-
-private val ParentClip: OverlayClip =
-    object : OverlayClip {
-        override fun getClipPath(
-            state: SharedContentState,
-            bounds: Rect,
-            layoutDirection: LayoutDirection,
-            density: Density
-        ): Path? {
-            return state.parentSharedContentState?.clipPathInOverlay
-        }
-    }
-
-private val DefaultSpring = spring(
-    stiffness = StiffnessMediumLow,
-    visibilityThreshold = Rect.VisibilityThreshold
-)
+//@Composable
+//fun Modifier.sharedElement(
+//    key: Any,
+//    boundsTransform: BoundsTransform = DefaultBoundsTransform,
+//    placeHolderSize: PlaceHolderSize = contentSize,
+//    renderInOverlayDuringTransition: Boolean = true,
+//    zIndexInOverlay: Float = 0f,
+//    clipInOverlayDuringTransition: OverlayClip = ParentClip
+//): Modifier {
+//    val sharedTransitionScope = LocalSharedTransitionScope.current
+//    val animatedContentScope = LocalAnimatedContentScope.current
+//    return this.then(
+//        if (sharedTransitionScope == null || animatedContentScope == null) {
+//            Modifier
+//        } else {
+//            with(sharedTransitionScope) {
+//                Modifier.sharedElement(
+//                    state = rememberSharedContentState(key),
+//                    animatedVisibilityScope = animatedContentScope,
+//                    boundsTransform = boundsTransform,
+//                    placeHolderSize = placeHolderSize,
+//                    renderInOverlayDuringTransition = renderInOverlayDuringTransition,
+//                    zIndexInOverlay = zIndexInOverlay,
+//                    clipInOverlayDuringTransition = clipInOverlayDuringTransition,
+//                )
+//            }
+//        }
+//    )
+//}
+//
+//private val DefaultBoundsTransform = BoundsTransform { _, _ -> DefaultSpring }
+//
+//private val ParentClip: OverlayClip =
+//    object : OverlayClip {
+//        override fun getClipPath(
+//            state: SharedContentState,
+//            bounds: Rect,
+//            layoutDirection: LayoutDirection,
+//            density: Density
+//        ): Path? {
+//            return state.parentSharedContentState?.clipPathInOverlay
+//        }
+//    }
+//
+//private val DefaultSpring = spring(
+//    stiffness = StiffnessMediumLow,
+//    visibilityThreshold = Rect.VisibilityThreshold
+//)

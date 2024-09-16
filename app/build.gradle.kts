@@ -12,7 +12,7 @@ android {
     compileSdk = libs.versions.compileSdkVersion.get().toInt()
 
     defaultConfig {
-        applicationId = "com.stylianosgakis.mars"
+        applicationId = "com.stylianosgakis.mars.start"
         targetSdk = libs.versions.targetSdkVersion.get().toInt()
         minSdk = libs.versions.minSdkVersion.get().toInt()
         versionCode = 1

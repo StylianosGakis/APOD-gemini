@@ -1,49 +1,25 @@
 package com.stylianosgakis.mars.apod.collection
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
-import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
-import androidx.compose.foundation.lazy.staggeredgrid.items
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.compose.dropUnlessResumed
 import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import com.stylianosgakis.mars.apod.ApodItem
-import com.stylianosgakis.mars.plus
-import com.stylianosgakis.mars.sharedElement
 import com.stylianosgakis.mars.theme.MarsTheme
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
@@ -55,7 +31,8 @@ fun ApodCollectionDestination(
     onNavigateToApodDetails: (title: String, url: String?) -> Unit,
 ) {
     val uiState: ApodCollectionUiState by apodCollectionViewModel.uiState.collectAsStateWithLifecycle()
-    ApodCollectionScreen(uiState, apodCollectionViewModel::refreshPhotos, onNavigateToApodDetails)
+    ApodCollectionScreen(uiState, {}, onNavigateToApodDetails)
+//    ApodCollectionScreen(uiState, apodCollectionViewModel::refreshPhotos, onNavigateToApodDetails)
 }
 
 @Composable
@@ -70,30 +47,33 @@ private fun ApodCollectionScreen(
     ) {
         when (uiState) {
             ApodCollectionUiState.Error -> {
-                Column(
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Text("Something went wrong")
-                    Button(refresh) {
-                        Text("Try again")
-                    }
-                }
+                Text("Something went wrong")
+//                Column(
+//                    verticalArrangement = Arrangement.Center,
+//                    horizontalAlignment = Alignment.CenterHorizontally,
+//                ) {
+//                    Text("Something went wrong")
+//                    Button(refresh) {
+//                        Text("Try again")
+//                    }
+//                }
             }
 
             ApodCollectionUiState.Loading -> {
-                CircularProgressIndicator(
-                    Modifier
-                        .wrapContentSize(Alignment.Center)
-                        .matchParentSize(),
-                )
+//                CircularProgressIndicator(
+//                    Modifier
+//                        .wrapContentSize(Alignment.Center)
+//                        .matchParentSize(),
+//                )
             }
 
-            is ApodCollectionUiState.Data -> ApodCollectionScreen(
-                uiState = uiState,
-                refresh = refresh,
-                onNavigateToApodDetails = onNavigateToApodDetails
-            )
+            is ApodCollectionUiState.Data -> {
+//                ApodCollectionScreen(
+//                    uiState = uiState,
+//                    refresh = refresh,
+//                    onNavigateToApodDetails = onNavigateToApodDetails
+//                )
+            }
         }
     }
 }
@@ -106,38 +86,40 @@ private fun ApodCollectionScreen(
 ) {
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Adaptive(150.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalItemSpacing = 8.dp,
-        contentPadding = PaddingValues(horizontal = 16.dp) + WindowInsets.safeDrawing.asPaddingValues(),
+//        horizontalArrangement = Arrangement.spacedBy(8.dp),
+//        verticalItemSpacing = 8.dp,
+//        contentPadding = PaddingValues(horizontal = 16.dp)
+////                + WindowInsets.safeDrawing.asPaddingValues(),
     ) {
-        item(span = StaggeredGridItemSpan.FullLine) {
-            Text(
-                text = "Apod list",
-                style = MaterialTheme.typography.displaySmall,
-                modifier = Modifier.padding(bottom = 8.dp),
-            )
-        }
-        items(
-            items = uiState.apodItems,
-            key = { it.title },
-        ) { apodItem ->
-            ApodListItem(
-                apodItem = apodItem,
-                onClick = dropUnlessResumed {
-                    onNavigateToApodDetails(apodItem.title, apodItem.url)
-                },
-            )
-        }
-        item(span = StaggeredGridItemSpan.FullLine) {
-            Button(
-                onClick = refresh,
-                modifier = Modifier.wrapContentWidth(),
-            ) {
-                Text(
-                    text = "Get a new set of items",
-                )
-            }
-        }
+////        item(span = StaggeredGridItemSpan.FullLine) {
+////            Text(
+////                text = "Apod list",
+////                style = MaterialTheme.typography.displaySmall,
+////                modifier = Modifier.padding(bottom = 8.dp),
+////            )
+////        }
+//        items(
+//            items = uiState.apodItems,
+//            key = { it.title },
+//        ) { apodItem ->
+//            ApodListItem(
+//                apodItem = apodItem,
+//                onClick = {},
+////                onClick = dropUnlessResumed {
+////                    onNavigateToApodDetails(apodItem.title, apodItem.url)
+////                },
+//            )
+//        }
+////        item(span = StaggeredGridItemSpan.FullLine) {
+////            Button(
+////                onClick = refresh,
+////                modifier = Modifier.wrapContentWidth(),
+////            ) {
+////                Text(
+////                    text = "Get a new set of items",
+////                )
+////            }
+////        }
     }
 }
 
@@ -149,45 +131,46 @@ private fun ApodListItem(
 ) {
     val shape = MaterialTheme.shapes.medium
     Card(
-        shape = shape,
-        border = BorderStroke(Dp.Hairline, MaterialTheme.colorScheme.onSurface),
+        shape = RectangleShape,
+//        shape = shape,
+//        border = BorderStroke(Dp.Hairline, MaterialTheme.colorScheme.onSurface),
         modifier = modifier,
     ) {
         Column(
-            modifier = Modifier.then(
-                if (onClick != null) {
-                    Modifier.clickable(onClick = onClick)
-                } else {
-                    Modifier
-                }
-            ),
+            modifier = if (onClick != null) {
+                Modifier.clickable(onClick = onClick)
+            } else {
+                Modifier
+            },
         ) {
             AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(apodItem.url)
-                    .memoryCacheKey(apodItem.url)
-                    .build(),
+                model = apodItem.url,
+//                model = ImageRequest.Builder(LocalContext.current)
+//                    .data(apodItem.url)
+//                    .memoryCacheKey(apodItem.url)
+//                    .build(),
                 contentDescription = apodItem.explanation,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(140.dp)
-                    .sharedElement(key = apodItem.title)
-                    .clip(shape)
-                    .background(MaterialTheme.colorScheme.surfaceDim)
+//                    .fillMaxWidth()
+//                    .height(140.dp)
+////                    .sharedElement(key = apodItem.title)
+//                    .clip(shape)
+                // While loading, show background
+//                    .background(MaterialTheme.colorScheme.surfaceDim)
             )
-            Column(Modifier.padding(8.dp)) {
+            Column(/*Modifier.padding(8.dp)*/) {
                 Text(
                     text = apodItem.title,
-                    style = MaterialTheme.typography.bodyLarge,
-                    fontWeight = FontWeight.Bold,
+//                    style = MaterialTheme.typography.bodyLarge,
+//                    fontWeight = FontWeight.Bold,
                 )
                 Text(
                     text = apodItem.explanation,
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.Light,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis,
+//                    style = MaterialTheme.typography.bodyMedium,
+//                    fontWeight = FontWeight.Light,
+//                    maxLines = 2,
+//                    overflow = TextOverflow.Ellipsis,
                 )
             }
         }
@@ -204,7 +187,8 @@ fun PreviewApodCollectionScreen() {
                     ApodItem(
                         title = "title#$it",
                         copyright = "copyright",
-                        date = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date,
+                        date = Clock.System.now()
+                            .toLocalDateTime(TimeZone.currentSystemDefault()).date,
                         explanation = "explanation",
                         url = null,
                     )
