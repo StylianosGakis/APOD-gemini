@@ -19,12 +19,16 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.transformLatest
 import kotlin.time.Duration.Companion.seconds
 
+/**
+ * https://developer.android.com/topic/libraries/architecture/viewmodel
+ */
 @OptIn(ExperimentalCoroutinesApi::class)
 class ApodCollectionViewModel(
     private val apodRepository: ApodRepository,
 ) : ViewModel() {
     private val refreshSignal = Channel<Unit>(Channel.UNLIMITED)
     private var lastEmittedValue: ApodCollectionUiState? = null
+    // https://developer.android.com/kotlin/flow/stateflow-and-sharedflow
     val uiState: StateFlow<ApodCollectionUiState> = flow {
         if (lastEmittedValue !is ApodCollectionUiState.Data) {
             emit(fetchApodItems())

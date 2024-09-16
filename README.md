@@ -66,6 +66,9 @@ will find and abuse them. Especially the Gemini key.
 covers the support of androidx.navigation for type-safe navigation. The same
 exists [in video form too](https://www.youtube.com/watch?v=8m1W4PyYMYQ)
 
+[Docs](https://developer.android.com/topic/libraries/architecture/viewmodel) about viewmodels + Compose  
+[Docs](https://developer.android.com/kotlin/flow/stateflow-and-sharedflow) about StateFlow
+
 Arrow docs
 about [working with typed errors](https://arrow-kt.io/learn/typed-errors/working-with-typed-errors/)
 and about [Either in particular](https://arrow-kt.io/learn/typed-errors/either-and-ior/)
