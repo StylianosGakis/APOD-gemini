@@ -66,11 +66,24 @@ will find and abuse them. Especially the Gemini key.
 covers the support of androidx.navigation for type-safe navigation. The same
 exists [in video form too](https://www.youtube.com/watch?v=8m1W4PyYMYQ)
 
-[Docs about compose Lazy Lists/Grids](https://developer.android.com/develop/ui/compose/lists)
+Arrow docs
+about [working with typed errors](https://arrow-kt.io/learn/typed-errors/working-with-typed-errors/)
+and about [Either in particular](https://arrow-kt.io/learn/typed-errors/either-and-ior/)
 
-[This tool](https://material-foundation.github.io/material-theme-builder/) was used to generate the material3 colors for
-the app
+[Docs](https://developer.android.com/develop/ui/compose/lists) about compose Lazy Lists/Grids
 
-[Documentation about compose @Previews](https://developer.android.com/develop/ui/compose/tooling/previews)
+[Docs](https://developer.android.com/develop/ui/compose/tooling/previews) about compose @Previews
 
-[Documentation about window insets and going edge to edge](https://developer.android.com/develop/ui/compose/layouts/insets)
+[Docs](https://developer.android.com/develop/ui/compose/layouts/insets) about window insets and
+going edge to edge
+
+[Docs](https://developer.android.com/develop/ui/compose/animation/quick-guide) about compose
+animations  
+[Article](https://medium.com/androiddevelopers/easing-in-to-easing-curves-in-jetpack-compose-d72893eeeb4d)
+about easing.  
+[M3 specs](https://m3.material.io/styles/motion/transitions/transition-patterns) on transitions
+
+[Docs](https://developer.android.com/develop/ui/compose/animation/shared-elements) about shared elements
+
+[This tool](https://material-foundation.github.io/material-theme-builder/) was used to generate the
+material3 colors for the app

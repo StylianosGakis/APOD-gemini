@@ -35,7 +35,11 @@ object MotionDefaults {
 }
 
 object SharedAxisDefaults {
+    /**
+     * Shared axis specs https://m3.material.io/styles/motion/transitions/transition-patterns#df9c7d76-1454-47f3-ad1c-268a31f58bad
+     */
     const val SharedAxisOffset = 30.0
+
     private const val SharedAxisDuration = MotionTokens.DurationMedium2.toInt()
 
     private val sharedAxisSlideAnimationSpec = tween<IntOffset>(
@@ -83,6 +87,9 @@ private val Int.ForOutgoing: Int
 private val Int.ForIncoming: Int
     get() = this - this.ForOutgoing
 
+/**
+ * Easing info https://medium.com/androiddevelopers/easing-in-to-easing-curves-in-jetpack-compose-d72893eeeb4d
+ */
 private object MotionTokens {
     const val DurationMedium2 = 300.0
     val EasingStandardCubicBezier = CubicBezierEasing(0.2f, 0.0f, 0.0f, 1.0f)

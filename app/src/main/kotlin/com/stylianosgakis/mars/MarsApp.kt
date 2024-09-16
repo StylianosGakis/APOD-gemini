@@ -19,6 +19,9 @@ class MarsApp : Application(), ImageLoaderFactory {
         }
     }
 
+    /**
+     * https://github.com/coil-kt/coil/blob/ce14e14bc9a25c6952e26e248aad75fbd2e9f9d0/coil-singleton/src/main/java/coil/Coil.kt#L66-L79
+     */
     override fun newImageLoader(): ImageLoader {
         return ImageLoader.Builder(this)
             .memoryCache { MemoryCache.Builder(this).build() }

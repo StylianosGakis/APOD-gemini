@@ -12,6 +12,7 @@ import com.stylianosgakis.mars.theme.MarsTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        // https://developer.android.com/develop/ui/compose/layouts/insets#compose-apis
         setupEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContent {
@@ -29,17 +30,17 @@ class MainActivity : ComponentActivity() {
     private fun setupEdgeToEdge(isDarkMode: Boolean? = null) {
         enableEdgeToEdge(
             statusBarStyle =
-                when (isDarkMode) {
-                    true -> SystemBarStyle.dark(Color.TRANSPARENT)
-                    false -> SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT)
-                    null -> SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT)
-                },
+            when (isDarkMode) {
+                true -> SystemBarStyle.dark(Color.TRANSPARENT)
+                false -> SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT)
+                null -> SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT)
+            },
             navigationBarStyle =
-                when (isDarkMode) {
-                    true -> SystemBarStyle.dark(Color.TRANSPARENT)
-                    false -> SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT)
-                    null -> SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT)
-                },
+            when (isDarkMode) {
+                true -> SystemBarStyle.dark(Color.TRANSPARENT)
+                false -> SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT)
+                null -> SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT)
+            },
         )
     }
 }

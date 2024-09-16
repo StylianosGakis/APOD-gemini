@@ -35,6 +35,9 @@ operator fun PaddingValues.plus(that: PaddingValues): PaddingValues = object : P
         this@plus.calculateTopPadding() + that.calculateTopPadding()
 }
 
+/**
+ * https://developer.android.com/develop/ui/compose/animation/shared-elements
+ */
 @Composable
 fun Modifier.sharedElement(
     key: Any,
