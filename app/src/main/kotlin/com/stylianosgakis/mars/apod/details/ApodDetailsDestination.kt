@@ -41,9 +41,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.compose.dropUnlessResumed
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.stylianosgakis.mars.LocalAnimatedContentScope
-import com.stylianosgakis.mars.LocalSharedTransitionScope
 import com.stylianosgakis.mars.apod.ApodItem
+import com.stylianosgakis.mars.sharedElement
 import com.stylianosgakis.mars.theme.MarsTheme
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
@@ -129,36 +128,12 @@ private fun ApodDetailsScreen(
                     .align(Alignment.CenterHorizontally)
                     .heightIn(min = 250.dp)
                     .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Top))
+                    .sharedElement(title)
                     .then(
-                        run {
-                            val sharedTransitionScope = LocalSharedTransitionScope.current
-                            val animatedContentScope = LocalAnimatedContentScope.current
-                            if (sharedTransitionScope != null && animatedContentScope != null) {
-                                with(sharedTransitionScope) {
-                                    Modifier.sharedElement(
-                                        state = rememberSharedContentState(title),
-                                        animatedVisibilityScope = animatedContentScope,
-                                    )
-                                }
-                            } else {
-                                Modifier
-                            }
-                        }
-                    )
-                    .then(
-                        run {
-                            val sharedTransitionScope = LocalSharedTransitionScope.current
-                            val animatedContentScope = LocalAnimatedContentScope.current
-                            if (sharedTransitionScope != null && animatedContentScope != null && apodUrl != null) {
-                                with(sharedTransitionScope) {
-                                    Modifier.sharedElement(
-                                        state = rememberSharedContentState(apodUrl),
-                                        animatedVisibilityScope = animatedContentScope,
-                                    )
-                                }
-                            } else {
-                                Modifier
-                            }
+                        if (apodUrl != null) {
+                            Modifier.sharedElement(key = apodUrl)
+                        } else {
+                            Modifier
                         }
                     )
                     .background(MaterialTheme.colorScheme.surfaceDim)

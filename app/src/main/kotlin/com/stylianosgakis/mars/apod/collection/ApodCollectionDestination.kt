@@ -41,10 +41,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.compose.dropUnlessResumed
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.stylianosgakis.mars.LocalAnimatedContentScope
-import com.stylianosgakis.mars.LocalSharedTransitionScope
 import com.stylianosgakis.mars.apod.ApodItem
 import com.stylianosgakis.mars.plus
+import com.stylianosgakis.mars.sharedElement
 import com.stylianosgakis.mars.theme.MarsTheme
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
@@ -173,22 +172,7 @@ private fun ApodListItem(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(140.dp)
-                    .then(
-                        run {
-                            val sharedTransitionScope = LocalSharedTransitionScope.current
-                            val animatedContentScope = LocalAnimatedContentScope.current
-                            if (sharedTransitionScope != null && animatedContentScope != null) {
-                                with(sharedTransitionScope) {
-                                    Modifier.sharedElement(
-                                        state = rememberSharedContentState(apodItem.title),
-                                        animatedVisibilityScope = animatedContentScope,
-                                    )
-                                }
-                            } else {
-                                Modifier
-                            }
-                        }
-                    )
+                    .sharedElement(key = apodItem.title)
                     .clip(shape)
                     .background(MaterialTheme.colorScheme.surfaceDim)
             )
