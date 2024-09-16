@@ -10,12 +10,13 @@ class ApodRepository(
     private val apodService: ApodService,
     private val apodDao: ApodDao,
 ) {
-    suspend fun getRandomApod(): Either<CallError, List<ApodItem>> =
-        apodService.getRandomApod().map { apodItems ->
+    suspend fun getRandomApod(): Either<CallError, List<ApodItem>> {
+        return apodService.getRandomApod().map { apodItems ->
             apodItems.map { item ->
                 item.copy(title = item.title.trim())
             }
         }.onRight { apodItems ->
             apodDao.insertAll(apodItems.map { item -> item.toApodEntity() })
         }
+    }
 }
