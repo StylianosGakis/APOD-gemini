@@ -202,7 +202,7 @@ fun PreviewApodCollectionScreen() {
             ApodCollectionUiState.Data(
                 List(5) {
                     ApodItem(
-                        title = "title",
+                        title = "title#$it",
                         copyright = "copyright",
                         date = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date,
                         explanation = "explanation",
