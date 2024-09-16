@@ -90,3 +90,5 @@ about easing.
 
 [This tool](https://material-foundation.github.io/material-theme-builder/) was used to generate the
 material3 colors for the app
+
+[Zoomable library](https://github.com/mxalbert1996/Zoomable)
