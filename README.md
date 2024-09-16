@@ -66,6 +66,8 @@ will find and abuse them. Especially the Gemini key.
 covers the support of androidx.navigation for type-safe navigation. The same
 exists [in video form too](https://www.youtube.com/watch?v=8m1W4PyYMYQ)
 
+[Docs about compose Lazy Lists/Grids](https://developer.android.com/develop/ui/compose/lists)
+
 [This tool](https://material-foundation.github.io/material-theme-builder/) was used to generate the material3 colors for
 the app
 
