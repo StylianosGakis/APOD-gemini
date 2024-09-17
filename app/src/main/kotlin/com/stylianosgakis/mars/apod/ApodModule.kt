@@ -3,8 +3,8 @@ package com.stylianosgakis.mars.apod
 import android.content.Context
 import arrow.retrofit.adapter.either.EitherCallAdapterFactory
 import com.stylianosgakis.mars.R
-import com.stylianosgakis.mars.api.ApodRepository
-import com.stylianosgakis.mars.api.ApodService
+import com.stylianosgakis.mars.apod.api.ApodRepository
+import com.stylianosgakis.mars.apod.api.ApodService
 import com.stylianosgakis.mars.apod.collection.ApodCollectionViewModel
 import com.stylianosgakis.mars.apod.details.ApodDetailsViewModel
 import kotlinx.serialization.json.Json

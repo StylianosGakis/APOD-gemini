@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import arrow.core.Either
 import com.stylianosgakis.mars.apod.ApodItem
-import com.stylianosgakis.mars.api.ApodRepository
+import com.stylianosgakis.mars.apod.api.ApodRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.SharingStarted

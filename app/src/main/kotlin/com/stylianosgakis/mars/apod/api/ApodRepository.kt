@@ -1,4 +1,4 @@
-package com.stylianosgakis.mars.api
+package com.stylianosgakis.mars.apod.api
 
 import arrow.core.Either
 import arrow.retrofit.adapter.either.networkhandling.CallError
