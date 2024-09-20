@@ -62,6 +62,8 @@ will find and abuse them. Especially the Gemini key.
 
 ## More interesting/relevant links
 
+To get started with Kotlin when you have previous Java experience, try out [Kotlin Koans](https://play.kotlinlang.org/koans/overview)
+
 [This article](https://medium.com/androiddevelopers/type-safe-navigation-for-compose-105325a97657)
 covers the support of androidx.navigation for type-safe navigation. The same
 exists [in video form too](https://www.youtube.com/watch?v=8m1W4PyYMYQ)
